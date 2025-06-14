@@ -1,0 +1,91 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  error:
+    include-message: always
+spring:
+  flyway:
+    enable: true
+  application:
+    name: rule-defender
+  datasource:
+    url: ${DATABASE_URL}
+    password: ${DATABASE_PASSWORD}
+    username: ${DATABASE_USERNAME}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          swagger-issuer-uri: ${SECURITY_SWAGGER_ISSUER_ID}
+          issuer-uri: ${SECURITY_ISSUER_URI}
+          jwk-set-uri: ${SECURITY_JWK_SET_URI}
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: ${MAIL_PROTOCOL}
+    tls: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: ${MAIL_TRUST_SERVER}
+app:
+  sendgrid:
+    apiKey: ${MAIL_SEND_GRID}
+    templateId: ${MAIL_TEMPLATE_ID}
+  ai:
+    extraction:
+      folder: "${EXTRACTION_PATH:./app/extraction/}"
+    model:
+      folder: "${MODEL_PATH:./app/model/}"
+  user:
+    client-id: "${CLIENT_ID}"
+    tenant-id: "${TENANT_ID}"
+    secret: "${SECRET}"
+    issuer: "${ISSUER}"
+
+logging:
+  level:
+    root: INFO
+    org.zalando.logbook: TRACE
+
+logbook:
+  predicate:
+    include:
+      - path: /api/**
+      - path: /actuator/**
+    exclude:
+      - path: /actuator/health
+  filter.enabled: true
+  secure-filter.enabled: true
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+    parameters:
+      - access_token
+      - password
+  attribute-extractors:
+    - type: JwtFirstMatchingClaimExtractor
+      claim-names: [ "sub", "subject" ]
+      claim-key: Principal
+    - type: JwtAllMatchingClaimsExtractor
+      claim-names: [ "sub", "iat" ]
+
+org:
+  jobrunr:
+    background-job-server:
+      enabled: true
+    dashboard:
+      enabled: true

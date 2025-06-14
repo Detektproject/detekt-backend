@@ -1,0 +1,1 @@
+   ALTER TABLE endpoint  ALTER COLUMN direction TYPE varchar(3);

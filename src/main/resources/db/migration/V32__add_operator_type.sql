@@ -1,0 +1,1 @@
+alter table operator add column type VARCHAR(1);

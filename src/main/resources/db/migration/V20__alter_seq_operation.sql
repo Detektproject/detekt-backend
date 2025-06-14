@@ -1,0 +1,1 @@
+ALTER SEQUENCE operation_id_seq RENAME to operation_seq;

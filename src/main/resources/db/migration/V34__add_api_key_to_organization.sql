@@ -1,0 +1,1 @@
+alter table organization add column api_key VARCHAR(100);

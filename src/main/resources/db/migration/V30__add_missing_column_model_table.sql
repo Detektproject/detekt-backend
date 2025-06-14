@@ -1,0 +1,1 @@
+alter table machine_learning_metadata add column status VARCHAR(10);

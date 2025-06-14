@@ -1,0 +1,1 @@
+ALTER SEQUENCE user_organization_id_seq RENAME to user_organization_seq;

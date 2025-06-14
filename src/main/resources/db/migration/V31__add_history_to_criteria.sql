@@ -1,0 +1,1 @@
+alter table criteria add column is_comparison_with_history VARCHAR(1);

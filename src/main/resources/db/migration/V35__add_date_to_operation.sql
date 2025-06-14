@@ -1,0 +1,1 @@
+alter table operation add column operation_date date;

@@ -1,0 +1,1 @@
+ALTER TABLE rule add column name varchar(100) not null;
